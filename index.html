@@ -1,0 +1,210 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>YouTubeJockey - playlists, charts & more!</title>
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css"/>
+  <!--<link rel="stylesheet" type="text/css" href="style.css"/>-->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+  <script src="main.js"></script>
+  
+  <script type="text/javascript">
+      Startup.main();
+  </script>
+  
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-34597108-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+    
+</head>
+
+<body>
+
+  <div class="fullPage">
+    <!-- Background effects
+    <canvas id="backgroundCanvas">
+    </canvas>
+    -->
+
+    <!--
+    <div id="fullscreenOff" style="display: none; position: absolute; top: 0; left: 0; z-index: 20; width: 100%; height: 100%;" onmousemove="/*onMouseMove()*/">
+    </div>
+    -->
+    
+    <div id="playerContainer">
+      <button class="btn" id="debugButton" onclick="debug()">Debug</button>
+      <div class="centeredPlayerContainer">
+        <div id="playerButtons" class="btn-group">
+          <span id="restOfButtons" class="btn-group">
+          <button class="btn" onclick="togglePlaylist(); return false;"><i id="playlistButton" class="icon-chevron-up"></i></button>
+          <input type="text" id="search-input" placeholder="Enter an artist or song..."/>
+          <button class="btn" onclick="playNext()"><i class="icon-fast-forward"></i>&nbsp;Next</button>
+          <button class="btn" onclick="randomVideo()"><i class="icon-random"></i>&nbsp;Random</button>
+          <button id="optionsButton" class="btn" data-id="popoverOptions" popover-title="A title"><i class="icon-wrench"></i>&nbsp;Options</button>
+          <!--<button class="btn" onclick="toggleFullScreenVideo()"><i class="icon-resize-full"></i>&nbsp;Fullscreen</button>-->
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <div id="videoOverlay">
+    </div>
+
+    <div id="listOverlay">
+    </div>
+    
+
+    <div class="playerLayer" id="playerLayer">
+
+      <div id="playerPlaceholder">
+        <div id="playerCenter" style="width: 480px; margin: 0 auto;">
+          <!--<div id="title"></div>-->
+          <div id="playerFrame" style="width: 480px; height: 300px;">
+            <div id="player">You need Flash player 8+ and JavaScript enabled to view this video.</div>
+          </div>
+          
+        </div>
+      </div>
+
+      
+      <div id="listContainer">
+        <div id="resultContainer"></div>
+
+        <div id="rightContainer">
+          <div class="playlistContainer">
+            <h3>Playlist &nbsp;<button id="playlistShuffle" class="btn btn-mini">Shuffle<i class="icon-random"></i></button><img class="loadingPlaceholder" src="loading.gif" /></h3>
+            <ol id="playlist" class="dataList ui-sortable">
+            </ol>
+              
+            <h3>Related</h3>
+            <div id="relatedContainer">
+              <div></div>
+            </div>
+            
+            <div id="historyContainer">
+              <ol id="history" class="dataList ui-sortable"></ol>
+            </div>
+          </div>
+        </div>
+        <div style="clear: both;"></div>
+      </div>
+
+      <div id="fullscreenOverlay"></div>
+    </div>
+
+  </div>
+
+ 
+  <div id="popoverOptions" aria-hidden="true" class="modal" style="display: none">
+    <div class="modal-header">
+      <h3 id="myModalLabel">Options</h3>
+    </div>
+    
+    <form class="form-horizontal">
+      <br>
+
+      <div class="control-group">
+        <label class="control-label" for="shufflePlaylistSelector">Shuffle playlist</label>
+        <div class="controls">
+          <select id="shufflePlaylistSelector" style="margin-bottom: 0px;">
+            <option value="0">No shuffle</option>
+            <option value="1">Random shuffle</option>
+            <option value="2">Shuffle playlist</option>
+          </select>
+        </div>
+      </div>
+      
+
+      <div class="control-group">
+        <label class="control-label" for="crossfadeCheckbox">Crossfade</label>
+        <div class="controls">
+          <input type="checkbox" value="" id="crossfadeCheckbox">
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <label class="control-label" for="genreSelector">Genre filter</label>
+        <div class="controls">
+          <select id="genreSelector" style="margin-bottom: 0px;">
+            <option>All genres</option>
+            <option value="1">Action & Adventure</option>
+            <option value="2">Animation & Cartoons</option>
+            <option value="3">Classic TV</option>
+            <option value="4">Comedy</option>
+            <option value="5">Drama</option>
+            <option value="6">Home & Garden</option>
+            <option value="7">News</option>
+            <option value="8">Reality & Game Shows</option>
+            <option value="9">Science & Tech</option>
+            <option value="10">Science Fiction</option>
+            <option value="11">Soaps</option>
+            <option value="13">Sports</option>
+            <option value="14">Travel</option>
+            <option value="15">Entertainment</option>
+            <option value="17">Documentary</option>
+            <option value="20">Nature</option>
+            <option value="21">Beauty & Fashion</option>
+            <option value="22">Food</option>
+            <option value="24">Gaming</option>
+            <option value="25">Health & Fitness</option>
+            <option value="26">Learning & Education</option>
+            <option value="27">Foreign Language</option>
+          </select>
+        </div>
+      </div>
+    </form>
+    
+    <div class="modal-footer">
+      <button class="btn btn-primary" id="modalSaveButton">Ok</button>
+    </div>
+  </div>
+
+  <div id="modalFeaturesDialog" aria-hidden="true" class="modal" style="display: none">
+    <div class="modal-header">
+      <h3 id="myModalLabel">Options</h3>
+    </div>
+    
+    <form class="form-horizontal">
+      <br>
+      <div class="control-group">
+        <label class="control-label" for="loadPlaylistButton">Load playlist</label>
+        <div class="controls">
+          <button class="btn" id="loadPlaylistButton">Load playlist</button>
+        </div>
+      </div>
+      
+    </form>
+    
+    <div class="modal-footer">
+      <button class="btn btn-primary" id="modalFeaturesCloseButton">Ok</button>
+    </div>
+  </div>
+  
+  <noscript id="noscript">
+    <div class="noscript">
+      <table width="100%" height="100%" valign="middle">
+        <tr>
+          <td>
+            <center>
+              <h1>YouTubeJockey is a web application for managing YouTube playlists, charts and more.
+              <h1>You need to enable JavaScript and Flash in order to use it.
+            </center>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </noscript>
+  
+</body>
+</html>

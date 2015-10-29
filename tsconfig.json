@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "target": "ES5",
+        "module": "amd",
+        "sourceMap": true,
+        "out": "build/jockey.js",
+        "noImplicitAny": true
+    }
+}

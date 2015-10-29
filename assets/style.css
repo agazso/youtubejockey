@@ -1,0 +1,333 @@
+    html, body {
+      font-size: 12px;
+      font-family: Arial Unicode MS, Helvetica, sans-serif;
+      background-image: url(http://s.ytimg.com/yt/imgbin/www-refreshbg-vflC3wnbM.png);
+      background-color: black;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .fullPage {
+      width: 100%;
+      height: 100%;
+      /*display: none;*/
+      overflow: hidden;
+      visibility: hidden;
+    }
+    
+    menu, ol, ul {
+      list-style-type: none;
+      -webkit-padding-start: 0px;
+    }
+
+    li {
+      margin: 0px;
+      padding: 0px;
+      color: white;
+      background-color: rgba(3, 3, 3, 0.3);
+      border-radius: 1px;
+      clear: both;
+    }
+    
+    a {
+      visibility: hidden;
+    }
+    
+    li:hover {
+      background-color: #ffffff; 
+      color: #333;
+    }
+    
+    li:hover button {
+      visibility: visible;
+    }
+    
+    .remove-button {
+      visibility: hidden;
+      float: right;
+    }
+
+    .video-result-wrap {
+      width: 100%;
+      height: 100px;
+      position: relative;
+      display: block;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .video-thumb-wrap {
+      width: 120px;
+      height: 90px;
+      float: left;
+    }
+
+    .video-thumb-wrapmq {
+      width: 185px;
+      height: 104px;
+      position: relative;
+      float: left;
+      vertical-align: top;
+    }
+    
+    .video-thumb {
+      /*float: left;*/
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      display: inline;
+      clear: both;
+    }
+  
+    .video-time {
+      height: 14px;
+      line-height: 14px;
+      opacity: 0.75;
+      right: 2px;
+      bottom: 2px;
+      position: absolute;
+      background-color: black;
+      color: white;
+      font-weight: bold;
+      font-size: 11px;
+      border-radius: 2px;
+      display: inline-block;
+      vertical-align: top;
+      zoom: 1;
+    }
+    
+    .video-title {
+      font-size: 13px;
+      font-weight: bold;
+      max-height: 26px;
+      line-height: 13px;
+      overflow: hidden;
+      vertical-align: top;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      word-wrap: normal;
+      display: block;
+    }
+
+    .video-uploader {
+      display: block;
+      font-size: 11px;
+      height: 11px;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .video-viewcount {
+      font-size: 11px;
+      display: block;
+    }
+    
+    .video-list-item {
+      clear: both;
+      display: block;
+      padding: 5px;
+    }
+    
+    .search {
+      border-radius: 2px;
+      width: 100%;
+    }
+
+    .playerLayer {
+      z-index: 1;
+      width: 960px;
+      margin: 0 auto;
+      display: block;
+    }
+
+/*
+
+    #backgroundCanvas {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+*/
+
+    #search-input {
+      vertical-align: top;
+      border-radius: 0px;
+      -moz-border-radius: 0px;
+      -webkit-border-radius: 0px;
+    }
+
+    #listContainer {
+      clear: left;
+      width: 960px;
+      display: block;
+      background-image: url(black-50-trans.png);
+      z-index: 3;
+      position: relative;
+      top: 0px;
+    }
+
+    #resultContainer {
+      overflow: auto;
+      /*width: 600px;*/
+      width: 60%;
+      /*display: inline;*/
+      float: left;
+      color: white;
+      display: inline-block;
+      max-height: 100%;
+    }
+
+    #rightContainer {
+      float: right;
+      //width: 300px;
+      width: 40%;
+      display: inline;
+      overflow: auto;
+      max-height: 100%;
+    }
+
+    .playlistContainer {
+      /*background-color:#eeeeee; */
+      /*background-image: url(black-50-trans.png);*/
+      margin: 2px;
+      padding: 4px;
+      position: relative;
+      color: white;
+    }
+    
+    .playlistContainer:hover #playlistShuffle {
+      visibility: visible;
+    }
+    
+    #relatedContainer {
+      color: white;
+    }
+    
+    #historyContainer {
+      display: none;
+    }
+    
+    #playerContainer {
+      position: fixed:
+      left: 0px;
+      top: 0px;
+      display: inline-block;
+      overflow: hidden;
+      margin: 0 auto;
+      padding: 0px;
+      width: 100%;
+    }  
+
+    #playerMinimizeButton {
+      display: inline;
+      z-index: 2;
+    }
+    
+    #playerButtons {
+      /*visibility: hidden;*/
+      z-index: 2;
+      display: inline;
+      width: 800px;
+    }
+    
+    #title {
+      font-weight: bold;
+      height: 22px;
+      font-size: 22px;
+      color: white;
+      padding: 4px;
+      overflow: hidden;
+    }
+
+    .alpha60 {
+      /* Fallback for web browsers that doesn't support RGBa */
+      background: rgb(0, 0, 0) transparent;
+      /* RGBa with 0.6 opacity */
+      background: rgba(0, 0, 0, 0.6);
+      /* For IE 5.5 - 7*/
+      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+      /* For IE 8*/
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+    }
+        
+    #player {
+      z-index: 0;
+    }
+    
+    #playerPlaceholder {
+      width: 960px;
+      background-color: black;
+      height: 300px;
+    }
+    
+    #listOverlay {
+      background-image: url(black-50-trans.png);
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      left: 0px;
+      top: 0px;
+      display: inline;
+      visibility: hidden;
+    }
+
+    #videoOverlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      visibility: hidden;
+      left: 0px;
+      top: 0px;
+      z-index: 0;
+      display: inline;
+    }
+
+    #fullscreenOverlay {
+      width: 30px;
+      height: 25px;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+    }
+    
+    #debugButton {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      z-index: 10;
+      display: none;
+    }
+    
+    .noscript {
+      width: 100%;
+      height: 100%;
+      background: white;
+      z-index: 10;
+      margin: 0 auto;
+      position: fixed;
+      left: 0px;
+      top: 0px;
+    }
+    
+    .noscript-center {
+      margin: 0 auto;
+      margin-top: 200px;
+      width: 600px;
+      height: 400px;
+      z-index: 10;
+      font-size: 22px;
+    }
+ 
+    #ytapiplayer {
+      color: white;
+    }
+    
+    .loadingPlaceholder {
+      visibility: hidden;
+    }
+    
+    #playlistShuffle {
+      visibility: hidden;
+    }
