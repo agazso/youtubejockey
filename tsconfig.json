@@ -6,5 +6,9 @@
         "sourceMap": true,
         "out": "build/jockey.js",
         "noImplicitAny": true
-    }
+    },
+    "filesGlob": [
+        "src/*.ts",
+        "src/*.tsx"
+    ]
 }

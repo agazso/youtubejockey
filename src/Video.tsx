@@ -1,57 +1,57 @@
-/// <reference path="../typings/react/react.d.ts" />
-import React = __React;
-declare var mountNode: any;
+/// <reference path="../typings/react/react-global.d.ts" />
 
 interface VideoData {
   id: string;
   duration: number;
-  viewCount: number;
+  viewCount?: number;
   title: string;
-  uploader: string;
 }
+
+interface VideoListProps extends React.Props<any> {
+  data: VideoData[];
+  player: YouTubePlayer;
+}
+
+class VideoList extends React.Component<VideoListProps, {}> {
+  render() {
+    var player = this.props.player;
+    var videos = this.props.data.map(function(video) {
+      return (
+        <Video key={video.id} video={video} player={player} />
+      );
+    });
+    return (
+      <div id="resultContainer">
+        {videos}
+      </div>
+    );
+  }
+} 
+
+
 
 interface VideoProps extends React.Props<any> {
   video: VideoData;
-  player: Player;
+  player: YouTubePlayer;
 }
 
 class Video extends React.Component<VideoProps, {}> {
   render() {
+    var thumbQuality:string = "mq"; 
     return (
-      <li id={this.props.video.id} onClick={this.onClickHandler}>
-        <VideoPreview thumbQuality="mq" video={this.props.video} />
-      </li>
+      <div onClick={this.onClickHandler.bind(this)} className="videoThumb">
+        <VideoImagePreview video={this.props.video} thumbQuality={thumbQuality} />
+        <div className="videoTitle">{this.props.video.title}</div>
+      </div>
     );
+//        <span className="video-time">{this.printableTime(this.props.video.duration)}</span>
+//        <span className="video-viewcount">{this.printableNumber(this.props.video.viewCount)} views</span>
   }
   
   onClickHandler(event:React.MouseEvent) {
     this.props.player.playVideoById(this.props.video.id);
   }
-}
 
-interface VideoPreviewProps extends React.Props<any> {
-  video: VideoData;
-  thumbQuality: string;
-  hasRemoveButton?: boolean;
-}
-
-class VideoPreview extends React.Component<VideoPreviewProps, {}> {
-  render() {
-    var thumbQualityClassName:string = "video-thumb-wrap" + this.props.thumbQuality; 
-    return (
-      <span className="video-result-wrap">
-        <span className={thumbQualityClassName}>
-          <VideoImagePreview video={this.props.video} thumbQuality={this.props.thumbQuality} />
-          <span className="video-time">{this.printableTime(this.props.video.duration)}</span>
-        </span>
-        <span className="video-title">{this.props.video.title}</span>
-        <span className="video-uploader">by {this.props.video.uploader}</span>
-        <span className="video-viewcount">{this.printableNumber(this.props.video.viewCount)} views</span>
-      </span>
-    );
-    // (hasRemoveButton ? '<button className="remove-button btn btn-mini" onClick="return Playlist.removePlaylistItem($(this).parent().parent());">Remove</button>' : '') +
-  }
-  
   printableNumber(num:number):string {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -75,7 +75,11 @@ class VideoPreview extends React.Component<VideoPreviewProps, {}> {
   
     return this.makeTwoDigitString(mins) + ":" + this.makeTwoDigitString(secs);
   }
-  
+}
+
+interface VideoPreviewProps extends React.Props<any> {
+  video: VideoData;
+  thumbQuality: string;
 }
 
 class VideoImagePreview extends React.Component<VideoPreviewProps, {}> {
