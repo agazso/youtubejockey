@@ -5,6 +5,7 @@
 class Search {
 	private inputName:string;
 	private data:VideoData[];
+	static MAX_RESULT_LENGTH = 12;
 	
 	constructor(private element:HTMLElement, private player:YouTubePlayer) {
 		this.inputName = "#search-input";
@@ -13,28 +14,37 @@ class Search {
 	
 	searchVideo() {
 		var searchInput = $(this.inputName).val();
-		var keyword = encodeURIComponent(searchInput);
+		var keyword = this.sanitizeInput(searchInput);
 		this.data = []
 		GoogleVideoSearch.search(keyword);
+	}
+	
+	sanitizeInput(input:string):string {
+		return input
+				.replace(/ /g, "+")
+				.replace(/&/, "&amp;")
+				;
 	}
 	
 	fixTitle(title:string):string {
 		return decodeURIComponent(title)
 				.replace(/ - YouTube$/, "")
-				.replace(/&quot/g, "'")
+				.replace(/&quot;/g, "'")
+				.replace(/&#39;/g, "'")
+				.replace(/&amp;/g, "&")
 				;
 	}
 	
 	onSearchComplete(searcher:google.search.VideoSearch) {
-		//var data:VideoData[] = [];
-		
 		searcher.results.map((result) => {
-			this.data.push({
-				"id": result.tbUrl.split('/')[4],
-				"duration": parseInt(result.duration, 10),
-				"viewCount": 420,
-				"title": this.fixTitle(result.titleNoFormatting),
-			});
+			if (this.data.length < Search.MAX_RESULT_LENGTH) {
+				this.data.push({
+					"id": result.tbUrl.split('/')[4],
+					"duration": parseInt(result.duration, 10),
+					"viewCount": 420,
+					"title": this.fixTitle(result.titleNoFormatting),
+				});
+			}
 		});
 		
 		if (searcher.cursor) {

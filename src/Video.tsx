@@ -28,8 +28,6 @@ class VideoList extends React.Component<VideoListProps, {}> {
   }
 } 
 
-
-
 interface VideoProps extends React.Props<any> {
   video: VideoData;
   player: YouTubePlayer;

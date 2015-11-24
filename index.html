@@ -38,17 +38,12 @@
 
     <div id="playerContainer" class="row header">
       <button class="btn" id="debugButton" onclick="debug()">Debug</button>
-      <div class="centeredPlayerContainer">
-        <div id="playerButtons" class="btn-group">
-          <span id="restOfButtons" class="btn-group">
-          <button class="btn" id="playlistButton"><i class="icon-chevron-up"></i></button>
-          <input type="text" id="search-input" placeholder="Enter an artist or song..."/>
-          <button class="btn" onclick="playNext()"><i class="icon-fast-forward"></i>&nbsp;Next</button>
-          <button class="btn" onclick="randomVideo()"><i class="icon-random"></i>&nbsp;Random</button>
-          <button id="optionsButton" class="btn" data-id="popoverOptions" popover-title="A title"><i class="icon-wrench"></i>&nbsp;Options</button>
-          <!--<button class="btn" onclick="toggleFullScreenVideo()"><i class="icon-resize-full"></i>&nbsp;Fullscreen</button>-->
-          </span>
-        </div>
+      <div class="centeredPlayerContainer btn-group">
+        <button class="btn" id="playlistButton"><i class="icon-chevron-up"></i></button>
+        <input type="text" id="search-input" placeholder="Enter an artist or song..."/>
+        <button class="btn" onclick="playNext()"><i class="icon-fast-forward"></i>&nbsp;Next</button>
+        <button class="btn" onclick="randomVideo()"><i class="icon-random"></i>&nbsp;Random</button>
+        <button id="optionsButton" class="btn" data-id="popoverOptions" popover-title="A title"><i class="icon-wrench"></i>&nbsp;Options</button>
       </div>
     </div>
     
